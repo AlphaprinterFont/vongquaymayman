@@ -2,12 +2,15 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="favicon.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vòng Quay may mắn Font Việt Linh</title>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
         * {
             box-sizing: border-box;
@@ -53,7 +56,7 @@
             justify-content: center;
         }
 
-        /* ----- PHẦN VÒNG QUAY ----- */
+        /* ----- PHẦN VÒNG QUAY (TRỊ LỖI ELIP SAFARI/CHROME) ----- */
         .wheel-section {
             flex: 1; 
             display: flex;
@@ -66,6 +69,7 @@
 
         .wheel-outer-rim {
             position: relative;
+            /* Ép cứng tỷ lệ 1:1 bằng hàm min để không bị bóp méo */
             width: min(75vh, 55vw);
             height: min(75vh, 55vw);
             flex-shrink: 0; 
@@ -152,7 +156,7 @@
                         inset 0 8px 15px rgba(0,0,0,0.2);
         }
 
-        /* ----- CỘT BÊN PHẢI ----- */
+        /* ----- CỘT BÊN PHẢI (SIDEBAR) ----- */
         .sidebar {
             width: 320px;
             flex-shrink: 0;
@@ -161,7 +165,6 @@
             gap: 25px;
         }
 
-        /* ----- PHẦN NHẬP TÊN ----- */
         .input-section {
             width: 100%;
             display: flex;
@@ -171,8 +174,8 @@
             padding: 25px;
             box-shadow:  15px 15px 30px #b8bfc7, 
                         -15px -15px 30px #ffffff;
-            height: 70vh;
-            max-height: 650px;
+            height: 65vh;
+            max-height: 600px;
         }
 
         .input-header {
@@ -222,6 +225,7 @@
                         inset -8px -8px 15px #ffffff;
         }
 
+        /* Các nút điều khiển */
         .controls {
             margin-top: 25px;
             display: grid;
@@ -261,10 +265,7 @@
             box-shadow: 0 6px 0 #922b21, 0 10px 15px rgba(0,0,0,0.2);
         }
 
-        .btn:active {
-            transform: translateY(6px);
-        }
-
+        .btn:active { transform: translateY(6px); }
         .btn-shuffle:active { box-shadow: 0 0px 0 #0e6655, 0 2px 5px rgba(0,0,0,0.2); }
         .btn-reset:active { box-shadow: 0 0px 0 #a04000, 0 2px 5px rgba(0,0,0,0.2); }
         .btn-clear:active { box-shadow: 0 0px 0 #922b21, 0 2px 5px rgba(0,0,0,0.2); }
@@ -304,6 +305,12 @@
             box-shadow: 8px 8px 15px #b8bfc7, -8px -8px 15px #ffffff;
         }
 
+        /* Màu riêng cho nút Liên hệ để tạo điểm nhấn */
+        .btn-contact:hover {
+            color: #e74c3c !important;
+            border-color: rgba(231, 76, 60, 0.3) !important;
+        }
+
         .links-section a:active {
             transform: translateY(2px);
             box-shadow: inset 4px 4px 8px #b8bfc7, inset -4px -4px 8px #ffffff;
@@ -311,51 +318,14 @@
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 800px) {
-            header { padding: 10px 15px; }
             header h1 { font-size: 24px; }
-            
-            .container {
-                flex-direction: column;
-                gap: 30px;
-                padding: 10px 15px 30px;
-            }
-
-            .sidebar {
-                width: 100%;
-                max-width: 500px;
-            }
-
-            .wheel-outer-rim {
-                padding: 15px;
-                width: 90vw;
-                height: 90vw;
-            }
-
-            .pointer {
-                right: -20px;
-                width: 55px;
-                height: 40px;
-            }
-
-            .spin-btn {
-                width: 90px;
-                height: 90px;
-                font-size: 20px;
-                border-width: 4px;
-            }
-
-            .input-section {
-                height: 450px; 
-                padding: 20px;
-            }
-
-            .controls {
-                gap: 10px;
-            }
-            .btn {
-                padding: 12px;
-                font-size: 13px;
-            }
+            .container { flex-direction: column; gap: 30px; padding: 10px 15px 30px; }
+            .sidebar { width: 100%; max-width: 500px; }
+            .wheel-outer-rim { width: 90vw; height: 90vw; padding: 15px; }
+            .pointer { right: -20px; width: 55px; height: 40px; }
+            .spin-btn { width: 90px; height: 90px; font-size: 20px; border-width: 4px; }
+            .input-section { height: 450px; }
+            .btn { font-size: 13px; }
         }
     </style>
 </head>
@@ -393,6 +363,7 @@
             <div class="links-section">
                 <a href="https://docs.google.com/spreadsheets/d/1FJZfdUx50TFt2mWM11f9i2Lm8f2Bsxum/edit?usp=sharing&ouid=108759078861426831168&rtpof=true&sd=true" target="_blank">📚 Bộ font Việt Hoá 4500 Font</a>
                 <a href="https://docs.google.com/spreadsheets/d/1LCw8ESaDGv3I9PAAimqbUHFhhIUR6CWmPdkkwObyQYY/edit?usp=sharing" target="_blank">🔥 Bộ font Việt hoá Tháng 1-T6/2026</a>
+                <a href="https://www.facebook.com/FontVietLinh" target="_blank" class="btn-contact">Liên hệ "Font Việt Linh"</a>
             </div>
         </div>
     </main>
@@ -405,11 +376,8 @@
         const spinBtn = document.getElementById('spin-btn');
         const pointer = document.getElementById('pointer');
         
-        const colors = [
-            "#FF5A5F", "#3BCEAC", "#FFC857", "#2D93AD", 
-            "#9B5DE5", "#F15BB5", "#00BBF9", "#00F5D4",
-            "#FCA311", "#E01A4F", "#06D6A0", "#118AB2"
-        ];
+        const colors = ["#FF5A5F", "#3BCEAC", "#FFC857", "#2D93AD", "#9B5DE5", "#F15BB5", "#00BBF9", "#00F5D4", "#FCA311", "#E01A4F", "#06D6A0", "#118AB2"];
+        const defaultNames = "Tý\nSửu\nDần\nMão\nThìn\nTỵ\nNgọ\nMùi\nThân\nDậu\nTuất\nHợi";
 
         let names = [];
         let currentAngle = 0;
@@ -419,16 +387,12 @@
         let lastPassedIndex = -1; 
         let tickTimeout;
 
-        const defaultNames = "Tý\nSửu\nDần\nMão\nThìn\nTỵ\nNgọ\nMùi\nThân\nDậu\nTuất\nHợi";
+        // Khôi phục dữ liệu từ LocalStorage
         const savedData = localStorage.getItem('fontVietLinh_wheelData');
-        
-        if (savedData !== null) {
-            namesInput.value = savedData;
-        } else {
-            namesInput.value = defaultNames;
-            localStorage.setItem('fontVietLinh_wheelData', defaultNames);
-        }
+        if (savedData !== null) { namesInput.value = savedData; } 
+        else { namesInput.value = defaultNames; localStorage.setItem('fontVietLinh_wheelData', defaultNames); }
 
+        // Audio System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
 
@@ -438,23 +402,17 @@
             const gainNode = audioCtx.createGain();
             osc.connect(gainNode);
             gainNode.connect(audioCtx.destination);
-            
             osc.type = 'triangle';
             osc.frequency.setValueAtTime(400, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.03);
-            
             gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
-            
-            osc.start(audioCtx.currentTime);
+            osc.start();
             osc.stop(audioCtx.currentTime + 0.03);
 
-            // Xử lý nảy mũi tên bằng Javascript 
             pointer.style.transform = 'translateY(-50%) rotate(15deg)';
             clearTimeout(tickTimeout);
-            tickTimeout = setTimeout(() => {
-                pointer.style.transform = 'translateY(-50%) rotate(0deg)';
-            }, 50);
+            tickTimeout = setTimeout(() => { pointer.style.transform = 'translateY(-50%) rotate(0deg)'; }, 50);
         }
 
         function playWinSound() {
@@ -466,15 +424,12 @@
                     const gainNode = audioCtx.createGain();
                     osc.connect(gainNode);
                     gainNode.connect(audioCtx.destination);
-                    
                     osc.type = 'sine';
                     osc.frequency.value = freq;
-                    
                     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
                     gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.1);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
-                    
-                    osc.start(audioCtx.currentTime);
+                    osc.start();
                     osc.stop(audioCtx.currentTime + 1.5);
                 }, index * 80); 
             });
@@ -484,7 +439,6 @@
             const text = namesInput.value;
             names = text.split('\n').map(n => n.trim()).filter(n => n.length > 0);
             entryCount.innerText = names.length;
-            
             localStorage.setItem('fontVietLinh_wheelData', text);
             drawWheel();
         }
@@ -496,47 +450,27 @@
             const radius = canvas.width / 2;
 
             if (names.length === 0) {
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-                ctx.fillStyle = '#cfd9df';
-                ctx.fill();
-                return;
+                ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                ctx.fillStyle = '#cfd9df'; ctx.fill(); return;
             }
 
             const sliceAngle = (2 * Math.PI) / names.length;
-
             for (let i = 0; i < names.length; i++) {
                 const startAngle = currentAngle + i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
-
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
+                ctx.beginPath(); ctx.moveTo(centerX, centerY);
                 ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-                
-                ctx.fillStyle = colors[i % colors.length];
-                ctx.fill();
-                
-                ctx.lineWidth = 6;
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-                ctx.stroke();
+                ctx.fillStyle = colors[i % colors.length]; ctx.fill();
+                ctx.lineWidth = 6; ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; ctx.stroke();
 
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(startAngle + sliceAngle / 2);
-                ctx.textAlign = 'right';
-                ctx.textBaseline = 'middle';
-                
-                ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
-                ctx.shadowBlur = 6;
-                ctx.shadowOffsetX = 2;
-                ctx.shadowOffsetY = 2;
-
-                ctx.fillStyle = '#ffffff';
-                ctx.font = '800 50px "Be Vietnam Pro"';
-                
+                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
+                ctx.fillStyle = '#ffffff'; ctx.font = '800 50px "Be Vietnam Pro"';
                 let text = names[i];
                 if (text.length > 22) text = text.substring(0, 20) + '...';
-                
                 ctx.fillText(text, radius - 60, 0);
                 ctx.restore();
             }
@@ -551,38 +485,26 @@
 
         function spinWheel() {
             if (isSpinning || names.length === 0) return;
-            
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
             isSpinning = true;
-            
-            // Thiết lập tốc độ cực nhanh, mạnh mẽ giống vòng 1
             spinVelocity = Math.random() * 0.15 + 0.6; 
-            
-            // Theo dõi vị trí hiện tại để phát âm thanh
             lastPassedIndex = getCurrentIndex();
             
             function animate() {
                 currentAngle += spinVelocity;
-                
-                // Giảm tốc từ từ để vòng quay kéo dài
                 spinVelocity *= 0.988; 
-
                 drawWheel();
 
-                // KIỂM TRA PHÁT ÂM THANH MƯỢT MÀ
                 let currentIndex = getCurrentIndex();
                 if (currentIndex !== lastPassedIndex) {
-                    playTickSound();
-                    lastPassedIndex = currentIndex;
+                    playTickSound(); lastPassedIndex = currentIndex;
                 }
 
                 if (spinVelocity > 0.002) {
                     animationFrame = requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
-                    // FIX LỖI TÍCH LŨY: Đưa góc về mức an toàn khi dừng lại
-                    currentAngle = currentAngle % (2 * Math.PI);
+                    currentAngle = currentAngle % (2 * Math.PI); // Reset góc về an toàn để đồng bộ vòng sau
                     cancelAnimationFrame(animationFrame);
                     announceWinner();
                 }
@@ -593,20 +515,12 @@
         function announceWinner() {
             const winnerIndex = getCurrentIndex();
             const winner = names[winnerIndex];
-
             playWinSound();
-
-            confetti({
-                particleCount: 250,
-                spread: 120,
-                origin: { y: 0.5 },
-                colors: colors,
-                zIndex: 9999
-            });
+            confetti({ particleCount: 250, spread: 120, origin: { y: 0.5 }, colors: colors, zIndex: 9999 });
 
             Swal.fire({
                 title: '🎉 XUẤT SẮC 🎉',
-                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 38px; color: #ff4757; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">${winner}</strong>`,
+                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 38px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
                 icon: 'success',
                 showCancelButton: true,
                 confirmButtonText: 'Loại người này',
@@ -623,6 +537,7 @@
             });
         }
 
+        // Sự kiện các nút
         namesInput.addEventListener('input', updateNames);
         spinBtn.addEventListener('click', spinWheel);
         
@@ -639,37 +554,26 @@
 
         document.getElementById('clear-btn').addEventListener('click', () => {
             if(isSpinning) return;
-            namesInput.value = '';
-            updateNames();
+            namesInput.value = ''; updateNames();
         });
 
         document.getElementById('reset-btn').addEventListener('click', () => {
             if(isSpinning) return;
-            
             Swal.fire({
                 title: 'Khôi phục mặc định?',
-                text: 'Danh sách hiện tại sẽ bị xóa và thay bằng 12 con giáp.',
+                text: 'Danh sách sẽ được thay bằng 12 con giáp.',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Khôi phục',
                 cancelButtonText: 'Hủy',
                 confirmButtonColor: '#f39c12',
-                cancelButtonColor: '#2c3e50',
-                backdrop: `rgba(44, 62, 80, 0.6)`
+                cancelButtonColor: '#2c3e50'
             }).then((result) => {
-                if (result.isConfirmed) {
-                    namesInput.value = defaultNames;
-                    updateNames();
-                }
+                if (result.isConfirmed) { namesInput.value = defaultNames; updateNames(); }
             });
         });
 
-        function scaleCanvas() {
-            canvas.style.width = '100%';
-            canvas.style.height = '100%';
-        }
-        
-        scaleCanvas();
+        window.addEventListener('resize', () => { drawWheel(); });
         updateNames();
     </script>
 </body>
