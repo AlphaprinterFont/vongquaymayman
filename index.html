@@ -7,7 +7,7 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -16,7 +16,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Be Vietnam Pro', sans-serif;
+            /* Áp dụng font Bungee toàn trang */
+            font-family: 'Bungee', cursive;
         }
 
         body {
@@ -36,10 +37,10 @@
 
         header h1 {
             color: #2c3e50;
-            font-size: 36px;
-            font-weight: 900;
+            font-size: 32px;
+            font-weight: normal;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 3px 3px 6px rgba(163, 177, 198, 0.6), 
                         -3px -3px 6px rgba(255, 255, 255, 0.8);
         }
@@ -56,7 +57,7 @@
             justify-content: center;
         }
 
-        /* ----- PHẦN VÒNG QUAY (TRỊ LỖI ELIP SAFARI/CHROME) ----- */
+        /* ----- PHẦN VÒNG QUAY ----- */
         .wheel-section {
             flex: 1; 
             display: flex;
@@ -69,7 +70,6 @@
 
         .wheel-outer-rim {
             position: relative;
-            /* Ép cứng tỷ lệ 1:1 bằng hàm min để không bị bóp méo */
             width: min(75vh, 55vw);
             height: min(75vh, 55vw);
             flex-shrink: 0; 
@@ -101,7 +101,6 @@
             transition: transform 0.1s;
         }
 
-        /* Mũi tên 3D */
         .pointer {
             position: absolute;
             top: 50%;
@@ -117,7 +116,6 @@
             transform-origin: right center;
         }
 
-        /* Nút quay 3D */
         .spin-btn {
             position: absolute;
             top: 50%;
@@ -130,8 +128,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 900;
-            font-size: 28px;
+            font-size: 24px;
             color: #2c3e50;
             cursor: pointer;
             border: 6px solid #fff;
@@ -145,24 +142,20 @@
 
         .spin-btn:hover {
             transform: translate(-50%, -50%) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3),
-                        inset 0 -8px 15px rgba(0,0,0,0.1),
-                        inset 0 8px 15px rgba(255,255,255,1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .spin-btn:active {
             transform: translate(-50%, -45%) scale(0.95);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2),
-                        inset 0 8px 15px rgba(0,0,0,0.2);
         }
 
-        /* ----- CỘT BÊN PHẢI (SIDEBAR) ----- */
+        /* ----- SIDEBAR ----- */
         .sidebar {
             width: 320px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
         .input-section {
@@ -174,31 +167,28 @@
             padding: 25px;
             box-shadow:  15px 15px 30px #b8bfc7, 
                         -15px -15px 30px #ffffff;
-            height: 65vh;
-            max-height: 600px;
+            height: 60vh;
+            max-height: 550px;
         }
 
         .input-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .input-header h2 {
-            font-size: 18px;
+            font-size: 16px;
             color: #2c3e50;
-            font-weight: 800;
-            text-transform: uppercase;
         }
 
         .count-badge {
             background: linear-gradient(145deg, #3498db, #2980b9);
             color: white;
-            padding: 6px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 14px;
-            font-weight: 800;
+            font-size: 12px;
             box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
         }
 
@@ -208,74 +198,53 @@
             background: #e0e5ec;
             border: none;
             border-radius: 15px;
-            padding: 20px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 15px;
+            font-size: 14px;
             color: #4a5568;
             resize: none;
             outline: none;
-            line-height: 1.8;
+            line-height: 1.6;
             box-shadow: inset 6px 6px 12px #a3b1c6, 
                         inset -6px -6px 12px #ffffff;
-            transition: all 0.3s;
         }
 
-        textarea:focus {
-            box-shadow: inset 8px 8px 15px #a3b1c6, 
-                        inset -8px -8px 15px #ffffff;
-        }
-
-        /* Các nút điều khiển */
         .controls {
-            margin-top: 25px;
+            margin-top: 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: none;
             border-radius: 12px;
             color: white;
-            font-weight: 800;
-            font-size: 14px;
+            font-size: 12px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s;
-            position: relative;
         }
 
         .btn-shuffle {
             grid-column: span 2;
             background: linear-gradient(145deg, #1abc9c, #16a085);
-            box-shadow: 0 6px 0 #0e6655, 0 10px 15px rgba(0,0,0,0.2);
-            font-size: 16px;
-            padding: 16px;
+            box-shadow: 0 5px 0 #0e6655, 0 8px 12px rgba(0,0,0,0.2);
+            font-size: 14px;
         }
 
-        .btn-reset {
-            background: linear-gradient(145deg, #f39c12, #d35400);
-            box-shadow: 0 6px 0 #a04000, 0 10px 15px rgba(0,0,0,0.2);
-        }
-        
-        .btn-clear {
-            background: linear-gradient(145deg, #e74c3c, #c0392b);
-            box-shadow: 0 6px 0 #922b21, 0 10px 15px rgba(0,0,0,0.2);
-        }
+        .btn-reset { background: linear-gradient(145deg, #f39c12, #d35400); box-shadow: 0 5px 0 #a04000, 0 8px 12px rgba(0,0,0,0.2); }
+        .btn-clear { background: linear-gradient(145deg, #e74c3c, #c0392b); box-shadow: 0 5px 0 #922b21, 0 8px 12px rgba(0,0,0,0.2); }
 
-        .btn:active { transform: translateY(6px); }
-        .btn-shuffle:active { box-shadow: 0 0px 0 #0e6655, 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-reset:active { box-shadow: 0 0px 0 #a04000, 0 2px 5px rgba(0,0,0,0.2); }
-        .btn-clear:active { box-shadow: 0 0px 0 #922b21, 0 2px 5px rgba(0,0,0,0.2); }
+        .btn:active { transform: translateY(5px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
 
-        /* ----- PHẦN LIÊN KẾT ----- */
+        /* ----- LIÊN KẾT ----- */
         .links-section {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             background: #e0e5ec;
             border-radius: 20px;
             padding: 20px;
@@ -288,9 +257,8 @@
             text-align: center;
             text-decoration: none;
             color: #2c3e50;
-            font-weight: 800;
-            font-size: 15px;
-            padding: 14px;
+            font-size: 13px;
+            padding: 12px;
             border-radius: 12px;
             background: linear-gradient(145deg, #f0f5fa, #c9d0d8);
             box-shadow: 5px 5px 10px #b8bfc7, -5px -5px 10px #ffffff;
@@ -300,32 +268,20 @@
 
         .links-section a:hover {
             color: #3498db;
-            border-color: rgba(52, 152, 219, 0.3);
             transform: translateY(-2px);
-            box-shadow: 8px 8px 15px #b8bfc7, -8px -8px 15px #ffffff;
         }
 
-        /* Màu riêng cho nút Liên hệ để tạo điểm nhấn */
-        .btn-contact:hover {
-            color: #e74c3c !important;
-            border-color: rgba(231, 76, 60, 0.3) !important;
-        }
-
-        .links-section a:active {
-            transform: translateY(2px);
-            box-shadow: inset 4px 4px 8px #b8bfc7, inset -4px -4px 8px #ffffff;
-        }
+        .btn-contact:hover { color: #e74c3c !important; }
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 800px) {
-            header h1 { font-size: 24px; }
+            header h1 { font-size: 22px; }
             .container { flex-direction: column; gap: 30px; padding: 10px 15px 30px; }
             .sidebar { width: 100%; max-width: 500px; }
             .wheel-outer-rim { width: 90vw; height: 90vw; padding: 15px; }
             .pointer { right: -20px; width: 55px; height: 40px; }
-            .spin-btn { width: 90px; height: 90px; font-size: 20px; border-width: 4px; }
+            .spin-btn { width: 90px; height: 90px; font-size: 18px; border-width: 4px; }
             .input-section { height: 450px; }
-            .btn { font-size: 13px; }
         }
     </style>
 </head>
@@ -352,7 +308,7 @@
                     <h2>Danh Sách</h2>
                     <span class="count-badge" id="entry-count">0</span>
                 </div>
-                <textarea id="names-input" placeholder="Nhập tên vào đây, mỗi dòng 1 tên..."></textarea>
+                <textarea id="names-input" placeholder="Nhập tên vào đây..."></textarea>
                 <div class="controls">
                     <button class="btn btn-shuffle" id="shuffle-btn">Xáo trộn danh sách</button>
                     <button class="btn btn-reset" id="reset-btn">Mặc định</button>
@@ -387,12 +343,10 @@
         let lastPassedIndex = -1; 
         let tickTimeout;
 
-        // Khôi phục dữ liệu từ LocalStorage
         const savedData = localStorage.getItem('fontVietLinh_wheelData');
         if (savedData !== null) { namesInput.value = savedData; } 
         else { namesInput.value = defaultNames; localStorage.setItem('fontVietLinh_wheelData', defaultNames); }
 
-        // Audio System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
 
@@ -468,10 +422,14 @@
                 ctx.rotate(startAngle + sliceAngle / 2);
                 ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
                 ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
-                ctx.fillStyle = '#ffffff'; ctx.font = '800 50px "Be Vietnam Pro"';
+                ctx.fillStyle = '#ffffff';
+                
+                // THAY ĐỔI FONT SANG BUNGEE VÀ CHỈNH LẠI SIZE 40PX CHO VỪA
+                ctx.font = '40px "Bungee"';
+                
                 let text = names[i];
-                if (text.length > 22) text = text.substring(0, 20) + '...';
-                ctx.fillText(text, radius - 60, 0);
+                if (text.length > 20) text = text.substring(0, 18) + '...';
+                ctx.fillText(text, radius - 70, 0);
                 ctx.restore();
             }
         }
@@ -504,7 +462,7 @@
                     animationFrame = requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
-                    currentAngle = currentAngle % (2 * Math.PI); // Reset góc về an toàn để đồng bộ vòng sau
+                    currentAngle = currentAngle % (2 * Math.PI);
                     cancelAnimationFrame(animationFrame);
                     announceWinner();
                 }
@@ -520,7 +478,7 @@
 
             Swal.fire({
                 title: '🎉 XUẤT SẮC 🎉',
-                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 38px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
+                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 32px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
                 icon: 'success',
                 showCancelButton: true,
                 confirmButtonText: 'Loại người này',
@@ -537,7 +495,6 @@
             });
         }
 
-        // Sự kiện các nút
         namesInput.addEventListener('input', updateNames);
         spinBtn.addEventListener('click', spinWheel);
         
