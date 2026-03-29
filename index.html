@@ -4,70 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vòng Quay may mắn Font Việt Linh</title>
-    
     <link rel="icon" type="image/png" href="favicon.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800;900&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Be Vietnam Pro', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Be Vietnam Pro', sans-serif; }
+        body { background-color: #e0e5ec; color: #2c3e50; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        header { padding: 15px 20px; text-align: center; z-index: 10; }
+        header h1 { color: #2c3e50; font-size: 36px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; text-shadow: 3px 3px 6px rgba(163, 177, 198, 0.6), -3px -3px 6px rgba(255, 255, 255, 0.8); }
 
-        body {
-            background-color: #e0e5ec;
-            color: #2c3e50;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+        .container { display: flex; flex: 1; padding: 10px 40px 40px; gap: 50px; max-width: 1600px; margin: 0 auto; width: 100%; align-items: center; justify-content: center; }
 
-        header {
-            padding: 15px 20px;
-            text-align: center;
-            z-index: 10;
-        }
-
-        header h1 {
-            color: #2c3e50;
-            font-size: 36px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 3px 3px 6px rgba(163, 177, 198, 0.6), 
-                        -3px -3px 6px rgba(255, 255, 255, 0.8);
-        }
-
-        .container {
-            display: flex;
-            flex: 1;
-            padding: 10px 40px 40px;
-            gap: 50px;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ----- PHẦN VÒNG QUAY ----- */
-        .wheel-section {
-            flex: 1; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            width: 100%;
-            padding: 10px;
-        }
-
+        /* ----- VÒNG QUAY ----- */
+        .wheel-section { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; width: 100%; padding: 10px; }
         .wheel-outer-rim {
             position: relative;
             width: min(75vh, 55vw);
@@ -75,195 +25,54 @@
             flex-shrink: 0; 
             border-radius: 50%;
             background: linear-gradient(145deg, #f0f5fa, #c9d0d8);
-            box-shadow:  30px 30px 60px #b8bfc7, 
-                        -30px -30px 60px #ffffff;
+            box-shadow: 30px 30px 60px #b8bfc7, -30px -30px 60px #ffffff;
             padding: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .wheel-inner-rim {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #e0e5ec;
-            box-shadow: inset 15px 15px 30px #a3b1c6, 
-                        inset -15px -15px 30px #ffffff;
-            position: relative;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            filter: drop-shadow(0 20px 25px rgba(0,0,0,0.25));
-            transition: transform 0.1s;
-        }
+        .wheel-inner-rim { width: 100%; height: 100%; border-radius: 50%; background: #e0e5ec; box-shadow: inset 15px 15px 30px #a3b1c6, inset -15px -15px 30px #ffffff; position: relative; overflow: hidden; }
+        
+        /* HIỆU ỨNG XOAY BẰNG GPU ĐỂ CHỐNG LAG */
+        canvas { width: 100%; height: 100%; border-radius: 50%; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15)); will-change: transform; }
 
         .pointer {
-            position: absolute;
-            top: 50%;
-            right: -35px;
-            transform: translateY(-50%) rotate(0deg);
-            width: 80px;
-            height: 55px;
-            background: linear-gradient(145deg, #ff4757, #ff6b81);
-            clip-path: polygon(0 50%, 100% 0, 100% 100%);
-            z-index: 15;
-            filter: drop-shadow(-8px 8px 8px rgba(0,0,0,0.3));
-            transition: transform 0.05s ease-out; 
-            transform-origin: right center;
+            position: absolute; top: 50%; right: -35px; transform: translateY(-50%) rotate(0deg);
+            width: 80px; height: 55px; background: linear-gradient(145deg, #ff4757, #ff6b81);
+            clip-path: polygon(0 50%, 100% 0, 100% 100%); z-index: 15;
+            filter: drop-shadow(-8px 8px 8px rgba(0,0,0,0.3)); transform-origin: right center;
         }
 
         .spin-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 130px;
-            height: 130px;
-            background: linear-gradient(145deg, #ffffff, #dcdcdc);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 900;
-            font-size: 28px;
-            color: #2c3e50;
-            cursor: pointer;
-            border: 6px solid #fff;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25),
-                        inset 0 -8px 15px rgba(0,0,0,0.1),
-                        inset 0 8px 15px rgba(255,255,255,1);
-            z-index: 20;
-            user-select: none;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 130px; height: 130px; background: linear-gradient(145deg, #ffffff, #dcdcdc);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-weight: 900; font-size: 28px; color: #2c3e50; cursor: pointer; border: 6px solid #fff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2), inset 0 -8px 15px rgba(0,0,0,0.1), inset 0 8px 15px rgba(255,255,255,1);
+            z-index: 20; user-select: none; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .spin-btn:hover {
-            transform: translate(-50%, -50%) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
+        .spin-btn:hover { transform: translate(-50%, -50%) scale(1.05); }
+        .spin-btn:active { transform: translate(-50%, -45%) scale(0.95); }
 
         /* ----- SIDEBAR ----- */
-        .sidebar {
-            width: 320px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .sidebar { width: 320px; flex-shrink: 0; display: flex; flex-direction: column; gap: 25px; }
+        .input-section { width: 100%; display: flex; flex-direction: column; background: #e0e5ec; border-radius: 25px; padding: 25px; box-shadow: 15px 15px 30px #b8bfc7, -15px -15px 30px #ffffff; height: 65vh; max-height: 600px; }
+        .input-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .input-header h2 { font-size: 18px; font-weight: 800; text-transform: uppercase; }
+        .count-badge { background: linear-gradient(145deg, #3498db, #2980b9); color: white; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 800; }
+        textarea { flex: 1; width: 100%; background: #e0e5ec; border: none; border-radius: 15px; padding: 15px; font-size: 16px; font-weight: 600; color: #4a5568; resize: none; outline: none; line-height: 1.8; box-shadow: inset 6px 6px 12px #a3b1c6, inset -6px -6px 12px #ffffff; }
 
-        .input-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            background: #e0e5ec;
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow:  15px 15px 30px #b8bfc7, 
-                        -15px -15px 30px #ffffff;
-            height: 65vh;
-            max-height: 600px;
-        }
-
-        .input-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .input-header h2 { font-size: 18px; color: #2c3e50; font-weight: 800; }
-
-        .count-badge {
-            background: linear-gradient(145deg, #3498db, #2980b9);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        textarea {
-            flex: 1;
-            width: 100%;
-            background: #e0e5ec;
-            border: none;
-            border-radius: 15px;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #4a5568;
-            resize: none;
-            outline: none;
-            line-height: 1.8;
-            box-shadow: inset 6px 6px 12px #a3b1c6, 
-                        inset -6px -6px 12px #ffffff;
-        }
-
-        .controls {
-            margin-top: 25px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 800;
-            font-size: 14px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-shuffle {
-            grid-column: span 2;
-            background: linear-gradient(145deg, #1abc9c, #16a085);
-            box-shadow: 0 6px 0 #0e6655, 0 10px 15px rgba(0,0,0,0.2);
-            font-size: 16px;
-            padding: 16px;
-        }
-
+        .controls { margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 14px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+        .btn-shuffle { grid-column: span 2; background: linear-gradient(145deg, #1abc9c, #16a085); box-shadow: 0 6px 0 #0e6655, 0 10px 15px rgba(0,0,0,0.2); font-size: 16px; padding: 16px; }
         .btn-reset { background: linear-gradient(145deg, #f39c12, #d35400); box-shadow: 0 6px 0 #a04000, 0 10px 15px rgba(0,0,0,0.2); }
         .btn-clear { background: linear-gradient(145deg, #e74c3c, #c0392b); box-shadow: 0 6px 0 #922b21, 0 10px 15px rgba(0,0,0,0.2); }
+        .btn:active { transform: translateY(6px); box-shadow: none; }
 
-        .btn:active { transform: translateY(6px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
-
-        /* ----- LIÊN KẾT ----- */
-        .links-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            background: #e0e5ec;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow:  10px 10px 20px #b8bfc7, 
-                        -10px -10px 20px #ffffff;
-        }
-
-        .links-section a {
-            display: block;
-            text-align: center;
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 800;
-            font-size: 15px;
-            padding: 14px;
-            border-radius: 12px;
-            background: linear-gradient(145deg, #f0f5fa, #c9d0d8);
-            box-shadow: 5px 5px 10px #b8bfc7, -5px -5px 10px #ffffff;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-        }
-
+        .links-section { width: 100%; display: flex; flex-direction: column; gap: 15px; background: #e0e5ec; border-radius: 20px; padding: 20px; box-shadow: 10px 10px 20px #b8bfc7, -10px -10px 20px #ffffff; }
+        .links-section a { display: block; text-align: center; text-decoration: none; color: #2c3e50; font-weight: 800; font-size: 15px; padding: 14px; border-radius: 12px; background: linear-gradient(145deg, #f0f5fa, #c9d0d8); box-shadow: 5px 5px 10px #b8bfc7, -5px -5px 10px #ffffff; transition: all 0.2s; }
         .links-section a:hover { color: #3498db; transform: translateY(-2px); }
         .btn-contact:hover { color: #e74c3c !important; }
 
@@ -273,42 +82,32 @@
             .sidebar { width: 100%; max-width: 500px; }
             .wheel-outer-rim { width: 90vw; height: 90vw; padding: 15px; }
             .pointer { right: -20px; width: 55px; height: 40px; }
-            .spin-btn { width: 90px; height: 90px; font-size: 20px; border-width: 4px; }
-            .input-section { height: 450px; }
+            .spin-btn { width: 90px; height: 90px; font-size: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Vòng Quay may mắn Font Việt Linh</h1>
-    </header>
+    <header><h1>Vòng Quay may mắn Font Việt Linh</h1></header>
 
     <main class="container">
         <div class="wheel-section">
             <div class="wheel-outer-rim">
-                <div class="wheel-inner-rim">
-                    <canvas id="canvas" width="1200" height="1200"></canvas>
-                </div>
+                <div class="wheel-inner-rim"><canvas id="canvas" width="1200" height="1200"></canvas></div>
                 <div class="pointer" id="pointer"></div>
                 <div class="spin-btn" id="spin-btn">QUAY</div>
             </div>
         </div>
-
         <div class="sidebar">
             <div class="input-section">
-                <div class="input-header">
-                    <h2>Danh Sách</h2>
-                    <span class="count-badge" id="entry-count">0</span>
-                </div>
-                <textarea id="names-input" placeholder="Nhập tên vào đây..."></textarea>
+                <div class="input-header"><h2>Danh Sách</h2><span class="count-badge" id="entry-count">0</span></div>
+                <textarea id="names-input"></textarea>
                 <div class="controls">
                     <button class="btn btn-shuffle" id="shuffle-btn">Xáo trộn danh sách</button>
                     <button class="btn btn-reset" id="reset-btn">Mặc định</button>
                     <button class="btn btn-clear" id="clear-btn">Xóa hết</button>
                 </div>
             </div>
-
             <div class="links-section">
                 <a href="https://docs.google.com/spreadsheets/d/1FJZfdUx50TFt2mWM11f9i2Lm8f2Bsxum/edit?usp=sharing&ouid=108759078861426831168&rtpof=true&sd=true" target="_blank">📚 Bộ font Việt Hoá 4500 Font</a>
                 <a href="https://docs.google.com/spreadsheets/d/1LCw8ESaDGv3I9PAAimqbUHFhhIUR6CWmPdkkwObyQYY/edit?usp=sharing" target="_blank">🔥 Bộ font Việt hoá Tháng 1-T6/2026</a>
@@ -333,12 +132,10 @@
         let isSpinning = false;
         let spinVelocity = 0;
         let animationFrame;
-        let lastPassedIndex = -1; 
         let tickTimeout;
 
         const savedData = localStorage.getItem('fontVietLinh_wheelData');
-        if (savedData !== null) { namesInput.value = savedData; } 
-        else { namesInput.value = defaultNames; localStorage.setItem('fontVietLinh_wheelData', defaultNames); }
+        namesInput.value = savedData !== null ? savedData : defaultNames;
 
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
@@ -351,13 +148,13 @@
             osc.type = 'triangle';
             osc.frequency.setValueAtTime(400, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.03);
-            gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
             osc.start(); osc.stop(audioCtx.currentTime + 0.03);
 
+            pointer.style.transition = 'transform 0.05s ease-out';
             pointer.style.transform = 'translateY(-50%) rotate(15deg)';
-            clearTimeout(tickTimeout);
-            tickTimeout = setTimeout(() => { pointer.style.transform = 'translateY(-50%) rotate(0deg)'; }, 50);
+            setTimeout(() => { pointer.style.transform = 'translateY(-50%) rotate(0deg)'; }, 50);
         }
 
         function playWinSound() {
@@ -370,7 +167,7 @@
                     osc.connect(gainNode); gainNode.connect(audioCtx.destination);
                     osc.type = 'sine'; osc.frequency.value = freq;
                     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-                    gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.1);
+                    gainNode.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.1);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
                     osc.start(); osc.stop(audioCtx.currentTime + 1.5);
                 }, index * 80); 
@@ -385,39 +182,43 @@
             drawWheel();
         }
 
+        // VẼ VÒNG QUAY MỘT LẦN DUY NHẤT (STATIC DRAW)
         function drawWheel() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
-            const radius = canvas.width / 2;
+            const radius = canvas.width / 2 - 10;
 
-            if (names.length === 0) {
-                ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-                ctx.fillStyle = '#cfd9df'; ctx.fill(); return;
-            }
+            if (names.length === 0) return;
 
             const sliceAngle = (2 * Math.PI) / names.length;
             for (let i = 0; i < names.length; i++) {
-                const startAngle = currentAngle + i * sliceAngle;
+                const startAngle = i * sliceAngle;
                 const endAngle = startAngle + sliceAngle;
-                ctx.beginPath(); ctx.moveTo(centerX, centerY);
+
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
                 ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-                ctx.fillStyle = colors[i % colors.length]; ctx.fill();
-                ctx.lineWidth = 6; ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; ctx.stroke();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.fill();
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = '#ffffff';
+                ctx.stroke();
 
                 ctx.save();
                 ctx.translate(centerX, centerY);
                 ctx.rotate(startAngle + sliceAngle / 2);
-                ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-                ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
                 ctx.fillStyle = '#ffffff';
-                
-                // VẼ LẠI FONT BE VIETNAM PRO
-                ctx.font = '800 50px "Be Vietnam Pro"';
-                
+                ctx.font = '800 45px "Be Vietnam Pro"';
+                // Thay đổ bóng nặng bằng viền mảnh để Chrome chạy mượt hơn
+                ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                ctx.lineWidth = 2;
                 let text = names[i];
                 if (text.length > 20) text = text.substring(0, 18) + '...';
-                ctx.fillText(text, radius - 70, 0);
+                ctx.strokeText(text, radius - 40, 0);
+                ctx.fillText(text, radius - 40, 0);
                 ctx.restore();
             }
         }
@@ -425,6 +226,7 @@
         function getCurrentIndex() {
             if (names.length === 0) return -1;
             const sliceAngle = (2 * Math.PI) / names.length;
+            // Tính toán index dựa trên góc xoay CSS hiện tại
             const normalizedAngle = (currentAngle % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
             return Math.floor(((2 * Math.PI - normalizedAngle) % (2 * Math.PI)) / sliceAngle);
         }
@@ -432,19 +234,27 @@
         function spinWheel() {
             if (isSpinning || names.length === 0) return;
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            isSpinning = true;
-            spinVelocity = Math.random() * 0.15 + 0.6; 
-            lastPassedIndex = getCurrentIndex();
             
+            isSpinning = true;
+            spinVelocity = Math.random() * 0.15 + 0.55; 
+            let lastPassedSlice = -1;
+
             function animate() {
                 currentAngle += spinVelocity;
-                spinVelocity *= 0.988; 
-                drawWheel();
-                let currentIndex = getCurrentIndex();
-                if (currentIndex !== lastPassedIndex) {
-                    playTickSound(); lastPassedIndex = currentIndex;
+                spinVelocity *= 0.991; // Lực ma sát chuẩn để quay lâu và mượt
+
+                // CHỈ XOAY KHUNG BẰNG CSS (TẬN DỤNG CARD ĐỒ HỌA)
+                canvas.style.transform = `rotate(${currentAngle}rad)`;
+
+                // XỬ LÝ ÂM THANH
+                const sliceAngle = (2 * Math.PI) / names.length;
+                const currentSlice = Math.floor(currentAngle / sliceAngle);
+                if (currentSlice !== lastPassedSlice) {
+                    playTickSound();
+                    lastPassedSlice = currentSlice;
                 }
-                if (spinVelocity > 0.002) {
+
+                if (spinVelocity > 0.0015) {
                     animationFrame = requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
@@ -460,18 +270,17 @@
             const winnerIndex = getCurrentIndex();
             const winner = names[winnerIndex];
             playWinSound();
-            confetti({ particleCount: 250, spread: 120, origin: { y: 0.5 }, colors: colors, zIndex: 9999 });
+            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
 
             Swal.fire({
                 title: '🎉 XUẤT SẮC 🎉',
-                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 38px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
+                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 35px; color: #ff4757;">${winner}</strong>`,
                 icon: 'success',
                 showCancelButton: true,
                 confirmButtonText: 'Loại người này',
                 cancelButtonText: 'Giữ lại',
                 confirmButtonColor: '#e74c3c',
                 cancelButtonColor: '#2c3e50',
-                backdrop: `rgba(44, 62, 80, 0.6)`
             }).then((result) => {
                 if (result.isConfirmed) {
                     names.splice(winnerIndex, 1);
@@ -483,7 +292,6 @@
 
         namesInput.addEventListener('input', updateNames);
         spinBtn.addEventListener('click', spinWheel);
-        
         document.getElementById('shuffle-btn').addEventListener('click', () => {
             if(isSpinning) return;
             let arr = namesInput.value.split('\n').filter(n => n.trim() !== '');
@@ -494,37 +302,14 @@
             namesInput.value = arr.join('\n');
             updateNames();
         });
-
-        document.getElementById('clear-btn').addEventListener('click', () => {
-            if(isSpinning) return;
-            namesInput.value = ''; updateNames();
-        });
-
+        document.getElementById('clear-btn').addEventListener('click', () => { if(!isSpinning) { namesInput.value = ''; updateNames(); } });
         document.getElementById('reset-btn').addEventListener('click', () => {
             if(isSpinning) return;
-            Swal.fire({
-                title: 'Khôi phục mặc định?',
-                text: 'Danh sách sẽ được thay bằng 12 con giáp.',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Khôi phục',
-                cancelButtonText: 'Hủy',
-                confirmButtonColor: '#f39c12',
-                cancelButtonColor: '#2c3e50'
-            }).then((result) => {
-                if (result.isConfirmed) { namesInput.value = defaultNames; updateNames(); }
-            });
+            Swal.fire({ title: 'Khôi phục?', text: 'Về danh sách mặc định.', icon: 'question', showCancelButton: true, confirmButtonText: 'OK' }).then((result) => { if (result.isConfirmed) { namesInput.value = defaultNames; updateNames(); } });
         });
 
-        window.addEventListener('resize', () => { drawWheel(); });
-
-        // Chờ font tải xong để vẽ lần đầu thật chuẩn
-        document.fonts.load('1em "Be Vietnam Pro"').then(() => {
-            updateNames();
-        });
-        
-        // Dự phòng
-        setTimeout(updateNames, 1000);
+        // Đảm bảo Font đã tải xong mới vẽ vòng quay
+        document.fonts.load('1em "Be Vietnam Pro"').then(updateNames);
     </script>
 </body>
 </html>
