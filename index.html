@@ -7,7 +7,10 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@200..800&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -26,6 +29,8 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
+            /* Chặn hiện tượng font bị giật khi tải */
+            text-rendering: optimizeLegibility;
         }
 
         header {
@@ -56,7 +61,6 @@
             justify-content: center;
         }
 
-        /* ----- PHẦN VÒNG QUAY (FIX CHỐNG MÉO) ----- */
         .wheel-section {
             flex: 1; 
             display: flex;
@@ -145,7 +149,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        /* ----- CỘT SIDEBAR ----- */
         .sidebar {
             width: 320px;
             flex-shrink: 0;
@@ -233,7 +236,6 @@
 
         .btn:active { transform: translateY(5px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
 
-        /* ----- PHẦN LIÊN KẾT ----- */
         .links-section {
             width: 100%;
             display: flex;
@@ -264,7 +266,6 @@
         .links-section a:hover { color: #3498db; transform: translateY(-2px); }
         .btn-contact:hover { color: #e74c3c !important; }
 
-        /* ----- RESPONSIVE ----- */
         @media (max-width: 800px) {
             header h1 { font-size: 24px; }
             .container { flex-direction: column; gap: 30px; padding: 10px 15px 30px; }
@@ -412,7 +413,7 @@
                 ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
                 ctx.fillStyle = '#ffffff';
                 
-                // CẬP NHẬT SANG FONT BRICOLAGE GROTESQUE TRONG CANVAS
+                // VẼ FONT CHỮ VỚI TÊN CHÍNH XÁC
                 ctx.font = '800 50px "Bricolage Grotesque"';
                 
                 let text = names[i];
@@ -440,17 +441,15 @@
                 currentAngle += spinVelocity;
                 spinVelocity *= 0.988; 
                 drawWheel();
-
                 let currentIndex = getCurrentIndex();
                 if (currentIndex !== lastPassedIndex) {
                     playTickSound(); lastPassedIndex = currentIndex;
                 }
-
                 if (spinVelocity > 0.002) {
                     animationFrame = requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
-                    currentAngle = currentAngle % (2 * Math.PI); // Reset góc để vòng sau mượt mà
+                    currentAngle = currentAngle % (2 * Math.PI);
                     cancelAnimationFrame(animationFrame);
                     announceWinner();
                 }
@@ -483,7 +482,6 @@
             });
         }
 
-        // Sự kiện các nút
         namesInput.addEventListener('input', updateNames);
         spinBtn.addEventListener('click', spinWheel);
         
@@ -520,7 +518,15 @@
         });
 
         window.addEventListener('resize', () => { drawWheel(); });
-        updateNames();
+
+        // KỸ THUẬT QUAN TRỌNG: Chờ font tải xong hoàn toàn mới vẽ
+        document.fonts.load('1em "Bricolage Grotesque"').then(() => {
+            console.log('Font Bricolage đã sẵn sàng!');
+            updateNames();
+        });
+        
+        // Dự phòng: Sau 2 giây vẫn vẽ kể cả font chưa xong
+        setTimeout(updateNames, 2000);
     </script>
 </body>
 </html>
