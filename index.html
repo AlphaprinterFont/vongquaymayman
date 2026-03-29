@@ -7,9 +7,7 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -19,7 +17,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Bricolage Grotesque', sans-serif;
+            font-family: 'Be Vietnam Pro', sans-serif;
         }
 
         body {
@@ -29,8 +27,6 @@
             flex-direction: column;
             min-height: 100vh;
             overflow-x: hidden;
-            /* Chặn hiện tượng font bị giật khi tải */
-            text-rendering: optimizeLegibility;
         }
 
         header {
@@ -42,9 +38,9 @@
         header h1 {
             color: #2c3e50;
             font-size: 36px;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-shadow: 3px 3px 6px rgba(163, 177, 198, 0.6), 
                         -3px -3px 6px rgba(255, 255, 255, 0.8);
         }
@@ -61,6 +57,7 @@
             justify-content: center;
         }
 
+        /* ----- PHẦN VÒNG QUAY ----- */
         .wheel-section {
             flex: 1; 
             display: flex;
@@ -131,7 +128,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 800;
+            font-weight: 900;
             font-size: 28px;
             color: #2c3e50;
             cursor: pointer;
@@ -149,12 +146,13 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
+        /* ----- SIDEBAR ----- */
         .sidebar {
             width: 320px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .input-section {
@@ -174,7 +172,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .input-header h2 { font-size: 18px; color: #2c3e50; font-weight: 800; }
@@ -182,7 +180,7 @@
         .count-badge {
             background: linear-gradient(145deg, #3498db, #2980b9);
             color: white;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 800;
@@ -195,17 +193,18 @@
             border: none;
             border-radius: 15px;
             padding: 15px;
-            font-size: 15px;
+            font-size: 16px;
+            font-weight: 600;
             color: #4a5568;
             resize: none;
             outline: none;
-            line-height: 1.6;
+            line-height: 1.8;
             box-shadow: inset 6px 6px 12px #a3b1c6, 
                         inset -6px -6px 12px #ffffff;
         }
 
         .controls {
-            margin-top: 20px;
+            margin-top: 25px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -218,7 +217,7 @@
             border-radius: 12px;
             color: white;
             font-weight: 800;
-            font-size: 13px;
+            font-size: 14px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s;
@@ -227,20 +226,22 @@
         .btn-shuffle {
             grid-column: span 2;
             background: linear-gradient(145deg, #1abc9c, #16a085);
-            box-shadow: 0 5px 0 #0e6655, 0 8px 12px rgba(0,0,0,0.2);
-            font-size: 15px;
+            box-shadow: 0 6px 0 #0e6655, 0 10px 15px rgba(0,0,0,0.2);
+            font-size: 16px;
+            padding: 16px;
         }
 
-        .btn-reset { background: linear-gradient(145deg, #f39c12, #d35400); box-shadow: 0 5px 0 #a04000, 0 8px 12px rgba(0,0,0,0.2); }
-        .btn-clear { background: linear-gradient(145deg, #e74c3c, #c0392b); box-shadow: 0 5px 0 #922b21, 0 8px 12px rgba(0,0,0,0.2); }
+        .btn-reset { background: linear-gradient(145deg, #f39c12, #d35400); box-shadow: 0 6px 0 #a04000, 0 10px 15px rgba(0,0,0,0.2); }
+        .btn-clear { background: linear-gradient(145deg, #e74c3c, #c0392b); box-shadow: 0 6px 0 #922b21, 0 10px 15px rgba(0,0,0,0.2); }
 
-        .btn:active { transform: translateY(5px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
+        .btn:active { transform: translateY(6px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
 
+        /* ----- LIÊN KẾT ----- */
         .links-section {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
             background: #e0e5ec;
             border-radius: 20px;
             padding: 20px;
@@ -254,8 +255,8 @@
             text-decoration: none;
             color: #2c3e50;
             font-weight: 800;
-            font-size: 14px;
-            padding: 12px;
+            font-size: 15px;
+            padding: 14px;
             border-radius: 12px;
             background: linear-gradient(145deg, #f0f5fa, #c9d0d8);
             box-shadow: 5px 5px 10px #b8bfc7, -5px -5px 10px #ffffff;
@@ -335,12 +336,10 @@
         let lastPassedIndex = -1; 
         let tickTimeout;
 
-        // Khôi phục dữ liệu
         const savedData = localStorage.getItem('fontVietLinh_wheelData');
         if (savedData !== null) { namesInput.value = savedData; } 
         else { namesInput.value = defaultNames; localStorage.setItem('fontVietLinh_wheelData', defaultNames); }
 
-        // Audio System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
 
@@ -413,8 +412,8 @@
                 ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
                 ctx.fillStyle = '#ffffff';
                 
-                // VẼ FONT CHỮ VỚI TÊN CHÍNH XÁC
-                ctx.font = '800 50px "Bricolage Grotesque"';
+                // VẼ LẠI FONT BE VIETNAM PRO
+                ctx.font = '800 50px "Be Vietnam Pro"';
                 
                 let text = names[i];
                 if (text.length > 20) text = text.substring(0, 18) + '...';
@@ -519,14 +518,13 @@
 
         window.addEventListener('resize', () => { drawWheel(); });
 
-        // KỸ THUẬT QUAN TRỌNG: Chờ font tải xong hoàn toàn mới vẽ
-        document.fonts.load('1em "Bricolage Grotesque"').then(() => {
-            console.log('Font Bricolage đã sẵn sàng!');
+        // Chờ font tải xong để vẽ lần đầu thật chuẩn
+        document.fonts.load('1em "Be Vietnam Pro"').then(() => {
             updateNames();
         });
         
-        // Dự phòng: Sau 2 giây vẫn vẽ kể cả font chưa xong
-        setTimeout(updateNames, 2000);
+        // Dự phòng
+        setTimeout(updateNames, 1000);
     </script>
 </body>
 </html>
