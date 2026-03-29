@@ -7,7 +7,7 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@200..800,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@200..800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -16,7 +16,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* Áp dụng font Bungee toàn trang */
             font-family: 'Bricolage Grotesque', sans-serif;
         }
 
@@ -37,8 +36,8 @@
 
         header h1 {
             color: #2c3e50;
-            font-size: 32px;
-            font-weight: normal;
+            font-size: 36px;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-shadow: 3px 3px 6px rgba(163, 177, 198, 0.6), 
@@ -57,7 +56,7 @@
             justify-content: center;
         }
 
-        /* ----- PHẦN VÒNG QUAY ----- */
+        /* ----- PHẦN VÒNG QUAY (FIX CHỐNG MÉO) ----- */
         .wheel-section {
             flex: 1; 
             display: flex;
@@ -128,7 +127,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
+            font-weight: 800;
+            font-size: 28px;
             color: #2c3e50;
             cursor: pointer;
             border: 6px solid #fff;
@@ -145,11 +145,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .spin-btn:active {
-            transform: translate(-50%, -45%) scale(0.95);
-        }
-
-        /* ----- SIDEBAR ----- */
+        /* ----- CỘT SIDEBAR ----- */
         .sidebar {
             width: 320px;
             flex-shrink: 0;
@@ -167,8 +163,8 @@
             padding: 25px;
             box-shadow:  15px 15px 30px #b8bfc7, 
                         -15px -15px 30px #ffffff;
-            height: 60vh;
-            max-height: 550px;
+            height: 65vh;
+            max-height: 600px;
         }
 
         .input-header {
@@ -178,18 +174,15 @@
             margin-bottom: 15px;
         }
 
-        .input-header h2 {
-            font-size: 16px;
-            color: #2c3e50;
-        }
+        .input-header h2 { font-size: 18px; color: #2c3e50; font-weight: 800; }
 
         .count-badge {
             background: linear-gradient(145deg, #3498db, #2980b9);
             color: white;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 12px;
-            box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+            font-size: 14px;
+            font-weight: 800;
         }
 
         textarea {
@@ -199,7 +192,7 @@
             border: none;
             border-radius: 15px;
             padding: 15px;
-            font-size: 14px;
+            font-size: 15px;
             color: #4a5568;
             resize: none;
             outline: none;
@@ -212,16 +205,17 @@
             margin-top: 20px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 15px;
         }
 
         .btn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 12px;
+            font-weight: 800;
+            font-size: 13px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.2s;
@@ -231,7 +225,7 @@
             grid-column: span 2;
             background: linear-gradient(145deg, #1abc9c, #16a085);
             box-shadow: 0 5px 0 #0e6655, 0 8px 12px rgba(0,0,0,0.2);
-            font-size: 14px;
+            font-size: 15px;
         }
 
         .btn-reset { background: linear-gradient(145deg, #f39c12, #d35400); box-shadow: 0 5px 0 #a04000, 0 8px 12px rgba(0,0,0,0.2); }
@@ -239,7 +233,7 @@
 
         .btn:active { transform: translateY(5px); box-shadow: 0 0px 0 transparent, 0 2px 5px rgba(0,0,0,0.2); }
 
-        /* ----- LIÊN KẾT ----- */
+        /* ----- PHẦN LIÊN KẾT ----- */
         .links-section {
             width: 100%;
             display: flex;
@@ -257,7 +251,8 @@
             text-align: center;
             text-decoration: none;
             color: #2c3e50;
-            font-size: 13px;
+            font-weight: 800;
+            font-size: 14px;
             padding: 12px;
             border-radius: 12px;
             background: linear-gradient(145deg, #f0f5fa, #c9d0d8);
@@ -266,21 +261,17 @@
             border: 2px solid transparent;
         }
 
-        .links-section a:hover {
-            color: #3498db;
-            transform: translateY(-2px);
-        }
-
+        .links-section a:hover { color: #3498db; transform: translateY(-2px); }
         .btn-contact:hover { color: #e74c3c !important; }
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 800px) {
-            header h1 { font-size: 22px; }
+            header h1 { font-size: 24px; }
             .container { flex-direction: column; gap: 30px; padding: 10px 15px 30px; }
             .sidebar { width: 100%; max-width: 500px; }
             .wheel-outer-rim { width: 90vw; height: 90vw; padding: 15px; }
             .pointer { right: -20px; width: 55px; height: 40px; }
-            .spin-btn { width: 90px; height: 90px; font-size: 18px; border-width: 4px; }
+            .spin-btn { width: 90px; height: 90px; font-size: 20px; border-width: 4px; }
             .input-section { height: 450px; }
         }
     </style>
@@ -343,10 +334,12 @@
         let lastPassedIndex = -1; 
         let tickTimeout;
 
+        // Khôi phục dữ liệu
         const savedData = localStorage.getItem('fontVietLinh_wheelData');
         if (savedData !== null) { namesInput.value = savedData; } 
         else { namesInput.value = defaultNames; localStorage.setItem('fontVietLinh_wheelData', defaultNames); }
 
+        // Audio System
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const audioCtx = new AudioContext();
 
@@ -354,15 +347,13 @@
             if (audioCtx.state === 'suspended') audioCtx.resume();
             const osc = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            osc.connect(gainNode); gainNode.connect(audioCtx.destination);
             osc.type = 'triangle';
             osc.frequency.setValueAtTime(400, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.03);
             gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.03);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.03);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.03);
 
             pointer.style.transform = 'translateY(-50%) rotate(15deg)';
             clearTimeout(tickTimeout);
@@ -376,15 +367,12 @@
                 setTimeout(() => {
                     const osc = audioCtx.createOscillator();
                     const gainNode = audioCtx.createGain();
-                    osc.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
+                    osc.connect(gainNode); gainNode.connect(audioCtx.destination);
+                    osc.type = 'sine'; osc.frequency.value = freq;
                     gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
                     gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.1);
                     gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 1.5);
+                    osc.start(); osc.stop(audioCtx.currentTime + 1.5);
                 }, index * 80); 
             });
         }
@@ -424,7 +412,7 @@
                 ctx.shadowColor = "rgba(0, 0, 0, 0.4)"; ctx.shadowBlur = 6;
                 ctx.fillStyle = '#ffffff';
                 
-                // THAY ĐỔI FONT SANG BUNGEE VÀ CHỈNH LẠI SIZE 40PX CHO VỪA
+                // CẬP NHẬT SANG FONT BRICOLAGE GROTESQUE TRONG CANVAS
                 ctx.font = '800 50px "Bricolage Grotesque"';
                 
                 let text = names[i];
@@ -462,7 +450,7 @@
                     animationFrame = requestAnimationFrame(animate);
                 } else {
                     isSpinning = false;
-                    currentAngle = currentAngle % (2 * Math.PI);
+                    currentAngle = currentAngle % (2 * Math.PI); // Reset góc để vòng sau mượt mà
                     cancelAnimationFrame(animationFrame);
                     announceWinner();
                 }
@@ -478,7 +466,7 @@
 
             Swal.fire({
                 title: '🎉 XUẤT SẮC 🎉',
-                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 32px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
+                html: `Chúc mừng người may mắn:<br><br><strong style="font-size: 38px; color: #ff4757; text-transform: uppercase;">${winner}</strong>`,
                 icon: 'success',
                 showCancelButton: true,
                 confirmButtonText: 'Loại người này',
@@ -495,6 +483,7 @@
             });
         }
 
+        // Sự kiện các nút
         namesInput.addEventListener('input', updateNames);
         spinBtn.addEventListener('click', spinWheel);
         
